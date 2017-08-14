@@ -1,9 +1,9 @@
 <?php
 include_once("./Services/Calendar/classes/class.ilAppointmentCustomGridPlugin.php");
+
 /***
- *
- * Dummy plugin for testing purposes.
- *
+ * Plugin example for the calendar revision.
+ * https://www.ilias.de/docu/goto.php?target=wiki_1357_Plugin_Slot_for_Appointements_in_Main_Column_Grid_Calendar
  * @author Jesús López Reyes <lopez@leifos.com>
  * @version $Id$
  */
@@ -42,6 +42,7 @@ class ilCustomGridPlugin extends ilAppointmentCustomGridPlugin
 		$appointment = $this->getAppointment();
 		$icon = false;
 
+		//example dealing with categories and types.
 		$cat_id = ilCalendarCategoryAssignments::_lookupCategory($appointment->getEntryId());
 		$cat = ilCalendarCategory::getInstanceByCategoryId($cat_id);
 		$cat_info["type"] = $cat->getType();
@@ -76,6 +77,9 @@ class ilCustomGridPlugin extends ilAppointmentCustomGridPlugin
 
 	//Agenda Methods
 	/**
+	 * @param string $shy button render
+	 * @param array $properties to add below the description.
+	 * @param string $color hexadecimal color value without "#"
 	 * @return \ILIAS\UI\Component\Item\Item $a_item
 	 */
 	public function editAgendaItem($shy, $properties, $color)
@@ -94,7 +98,7 @@ class ilCustomGridPlugin extends ilAppointmentCustomGridPlugin
 		else {
 			$description_color = "orange";
 		}
-		//example dealing with appointment properties.
+		//example dealing with the appointment properties.
 		if($this->appointment->isFullday()) {
 			$description = "<span style='color:".$description_color."'>[PLUGIN] This appointment is FULL DAY   - ".$this->appointment->getDescription()."</span>";
 			$properties["metadata by PLUGIN"] = "<h3>This text exists because the plugin knows that this is a full day event</h3>";
@@ -111,6 +115,9 @@ class ilCustomGridPlugin extends ilAppointmentCustomGridPlugin
 		return $li;
 	}
 
+	/**
+	 * @return string new shy button title.
+	 */
 	public function editShyButtonTitle()
 	{
 		return "[PLUGIN]changed this title.";
