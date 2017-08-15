@@ -123,4 +123,12 @@ class ilCustomGridPlugin extends ilAppointmentCustomGridPlugin
 		return "[PLUGIN]changed this title.";
 	}
 
+	/**
+	 * @return string
+	 */
+	public function editModalTitle()
+	{
+		return "[PLUGIN]title changed by plugin";
+	}
+
 }
