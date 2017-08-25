@@ -77,40 +77,48 @@ class ilCustomGridPlugin extends ilAppointmentCustomGridPlugin
 
 	//Agenda Methods
 	/**
-	 * @param string $shy button render
-	 * @param array $properties to add below the description.
-	 * @param string $color hexadecimal color value without "#"
-	 * @return \ILIAS\UI\Component\Item\Item $a_item
+	 * @param \ILIAS\UI\Component\Item\Item $a_item
+	 * @return \ILIAS\UI\Component\Item\Item
 	 */
-	public function editAgendaItem($shy, $properties, $color)
+	public function editAgendaItem(\ILIAS\UI\Component\Item\Item $a_item)
 	{
+
 		global $DIC;
 
 		$f = $DIC->ui()->factory();
+
 		$df = new \ILIAS\Data\Factory();
+
+		$properties = $a_item->getProperties();
 
 		//example dealing with calendar types.
 		$cat_id = ilCalendarCategoryAssignments::_lookupCategory($this->appointment->getEntryId());
 		$cat = ilCalendarCategory::getInstanceByCategoryId($cat_id);
+
 		if(ilObject::_lookupType($cat->getObjId()) == "sess") {
 			$description_color = "blue";
+
 		}
 		else {
 			$description_color = "orange";
 		}
-		//example dealing with the appointment properties.
+
+		//new description and properties
 		if($this->appointment->isFullday()) {
-			$description = "<span style='color:".$description_color."'>[PLUGIN] This appointment is FULL DAY   - ".$this->appointment->getDescription()."</span>";
+			$description = "<span style='color:".$description_color."'>[Edit by Plugin - Full day event] - ".$a_item->getDescription()."</span>";
 			$properties["metadata by PLUGIN"] = "<h3>This text exists because the plugin knows that this is a full day event</h3>";
 		} else {
-			$description = "<span style='color:$description_color'>[PLUGIN] This appointment is NOT full day  - ".$this->appointment->getDescription()."</span>";
+			$description = "<span style='color:".$description_color."'>[Edit by Plugin - NOT Full day event] - ".$a_item->getDescription()."</span>";
 		}
 
-		$li = $f->item()->standard($shy)
+		//new item color
+		$new_color = '#78B44D';
+
+		$li = $f->item()->standard($a_item->getTitle())
 			->withDescription("".$description)
-			->withLeadText(ilDatePresentation::formatPeriod($this->start_date, $this->appointment->getEnd(), true))
+			->withLeadText(ilDatePresentation::formatPeriod($this->appointment->getStart(), $this->appointment->getEnd(), true))
 			->withProperties($properties)
-			->withColor($df->color('#'.$color));
+			->withColor($df->color($new_color));
 
 		return $li;
 	}
