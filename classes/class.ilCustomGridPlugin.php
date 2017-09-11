@@ -20,12 +20,55 @@ class ilCustomGridPlugin extends ilAppointmentCustomGridPlugin
 
 	/**
 	 * Replace the whole appointment presentation in the grid.
+	 * @param string $a_content html grid content
 	 * @return mixed string or empty.
 	 */
-	public function replaceContent()
+	public function replaceContent($a_content)
 	{
-		//return "<p style='font-size:90%;'>[PLUGIN] Content replaced.</p>";
-		return;
+		//The following code is only to test the plugin and it does not follow the best practices.
+		$content = $a_content;
+
+		if($_GET['cmdClass'] == "ilcalendardaygui")
+		{
+			$content = str_replace('btn-link','btn btn-info',$content);
+			return $content;
+		}
+
+		if($this->appointment->isFullday()) {
+			$content = preg_replace('/background-color:(.*);/i','background-color:red;',$content,1);
+		}
+		else {
+			$content = preg_replace('/background-color:(.*);/i','background-color:orange;',$content,1);
+		}
+
+		$appointment = $this->getAppointment();
+		//example dealing with categories and types.
+		$cat_id = ilCalendarCategoryAssignments::_lookupCategory($appointment->getEntryId());
+		$cat = ilCalendarCategory::getInstanceByCategoryId($cat_id);
+		$cat_info["type"] = $cat->getType();
+		$cat_info["obj_id"] = $cat->getObjId();
+
+		$str_full_day = "";
+		if($this->appointment->isFullday())
+		{
+			$str_full_day = " <span style='color:green'>[Full day event]</span>";
+		}
+
+		if($cat_info['type'] == ilCalendarCategory::TYPE_OBJ) {
+			$obj_type = ilObject::_lookupType($cat_info["obj_id"]);
+			switch ($obj_type) {
+				case "crs":
+					$content = $content."<p style='color:magenta;background-color:yellow'>Course event".$str_full_day."</p>";
+					break;
+				case "sess":
+					$content = "<p style='color:red;background-color:orange'>Session event".$str_full_day."</p>";
+					break;
+				default:
+					$content = "<p style='color:deeppink;background-color:white'>No course/session event".$str_full_day."</p>";
+			}
+		}
+
+		return $content;
 	}
 
 	/**
