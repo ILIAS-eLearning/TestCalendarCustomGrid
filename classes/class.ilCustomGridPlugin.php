@@ -3,13 +3,13 @@ include_once("./Services/Calendar/classes/class.ilAppointmentCustomGridPlugin.ph
 
 /***
  * Plugin example for the calendar revision.
+ * Plugin slot: AppointmentCustomGrid
  * https://www.ilias.de/docu/goto.php?target=wiki_1357_Plugin_Slot_for_Appointements_in_Main_Column_Grid_Calendar
  * @author Jesús López Reyes <lopez@leifos.com>
  * @version $Id$
  */
 class ilCustomGridPlugin extends ilAppointmentCustomGridPlugin
 {
-
 	/**
 	 * @return	string	Plugin Name
 	 */
@@ -125,7 +125,6 @@ class ilCustomGridPlugin extends ilAppointmentCustomGridPlugin
 	 */
 	public function editAgendaItem(\ILIAS\UI\Component\Item\Item $a_item)
 	{
-
 		global $DIC;
 
 		$f = $DIC->ui()->factory();
