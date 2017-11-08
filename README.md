@@ -3,10 +3,10 @@
 CustomGrid is a plugin to test the "AppointmentCustomGrid" plugin slot. It is only for test purposes.
 
 **Minimum ILIAS Version:**
-5.2
+5.3
 
 **Maximum ILIAS Version:**
-5.2
+5.3
 
 **Responsible Developer:**
 Jesús López Reyes - lopez@leifos.com
