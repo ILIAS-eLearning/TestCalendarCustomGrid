@@ -8,14 +8,14 @@ include_once("./Services/Calendar/classes/class.ilAppointmentCustomGridPlugin.ph
  * @author Jesús López Reyes <lopez@leifos.com>
  * @version $Id$
  */
-class ilCustomGridPlugin extends ilAppointmentCustomGridPlugin
+class ilTestCalendarCustomGridPlugin extends ilAppointmentCustomGridPlugin
 {
 	/**
 	 * @return	string	Plugin Name
 	 */
 	final function getPluginName()
 	{
-		return "CustomGrid";
+		return "TestCalendarCustomGrid";
 	}
 
 	/**
