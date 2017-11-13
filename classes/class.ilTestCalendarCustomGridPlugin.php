@@ -73,11 +73,13 @@ class ilTestCalendarCustomGridPlugin extends ilAppointmentCustomGridPlugin
 	}
 
 	/**
+	 *
+	 * Add extra content to the event grid.
 	 * @return string or empty.
 	 */
 	public function addExtraContent()
 	{
-		return "<p style='font-size:90%;'>[PLUGIN] Content added.</p>";
+		return "<p style='font-size:12px' color:blue; font-weight:bold; text-align:center>*Plugin TestCalendarCustomGrid added this text*</p>";
 	}
 
 	//this method should return only the path.
@@ -99,9 +101,6 @@ class ilTestCalendarCustomGridPlugin extends ilAppointmentCustomGridPlugin
 			{
 				case "crs":
 					$icon = ilUtil::getImagePath("icon_crss.svg");
-					break;
-				case "grp":
-					$icon = ilUtil::getImagePath("icon_grps.svg");
 					break;
 				case "sess":
 					$icon = ilUtil::getImagePath("icon_sess.svg");
@@ -171,7 +170,11 @@ class ilTestCalendarCustomGridPlugin extends ilAppointmentCustomGridPlugin
 	 */
 	public function editShyButtonTitle()
 	{
-		return "[PLUGIN]changed this title.";
+		//if a new name is needed
+		return "<p style='background-color:lightgreen; text-align:center; color:red !important;font-weight:bold;'>Title changed by ilTestCalendarGridPlugin</p>";
+
+		//if a new name is not needed return false
+		//return false;
 	}
 
 }
