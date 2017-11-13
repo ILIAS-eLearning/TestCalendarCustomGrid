@@ -35,3 +35,25 @@ Depending of the element this plugin add/change the link presentation in this ca
  
 The plugin also changes the default title and description of the appointments located in the agenda: 
   - List view
+ 
+#### Visible Changes
+
+- Day view:
+  - If the appointment is full day:
+  the background color of the link is like a light orange (btn-info)
+	
+  - If appointment is not full day:
+   the background color of the link is blue (btn-default)
+
+- Week, Month view:
+  - If the appointment is full day and it's created by a Course, the content is completely replaced by the text "Course (modified by plugin TestCalendarCustomGrid)" using 2 font sizes and a light green background color.
+
+  - If the appointment is full day and it's created by a Session, the content is completely replaced by the text "Session (modified by plugin TestCalendarCustomGrid)" using 2 font sizes and orange background color.
+
+  - If the appointment is not full day, the event has this changes:
+	- If the event is created by a course a new "course" icon is added
+	- If the event is created by a session a new "session" icon is added
+	- The event title has background color "light green"
+	- The event title is bold and red.
+	- The title of the event is: "Title changed by ilTestCalendarGridPlugin"
+	- Extra text is added: "*Plugin TestCalendarCustomGrid added this text*"
