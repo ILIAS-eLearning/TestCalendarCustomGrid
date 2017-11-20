@@ -138,7 +138,7 @@ class ilTestCalendarCustomGridPlugin extends ilAppointmentCustomGridPlugin
 		$cat = ilCalendarCategory::getInstanceByCategoryId($cat_id);
 
 		if(ilObject::_lookupType($cat->getObjId()) == "sess") {
-			$description_color = "blue";
+			$description_color = "green";
 
 		}
 		else {
@@ -147,14 +147,14 @@ class ilTestCalendarCustomGridPlugin extends ilAppointmentCustomGridPlugin
 
 		//new description and properties
 		if($this->appointment->isFullday()) {
-			$description = "<span style='color:".$description_color."'>[Edit by Plugin - Full day event] - ".$a_item->getDescription()."</span>";
-			$properties["metadata by PLUGIN"] = "<h3>This text exists because the plugin knows that this is a full day event</h3>";
+			$description = "<span style='color:".$description_color."'>[ilTestCalendarPlugin - Full day event] - ".$a_item->getDescription()."</span>";
+			$properties["metadata by TestCalendar plugin"] = "<h3>This text exists because the plugin knows that this is a full day event</h3>";
 		} else {
-			$description = "<span style='color:".$description_color."'>[Edit by Plugin - NOT Full day event] - ".$a_item->getDescription()."</span>";
+			$description = "<span style='color:".$description_color."'>[ilTestCalendarPlugin - NOT Full day event] - ".$a_item->getDescription()."</span>";
 		}
 
 		//new item color
-		$new_color = '#78B44D';
+		$new_color = '#CC0000';
 
 		$li = $f->item()->standard($a_item->getTitle())
 			->withDescription("".$description)
