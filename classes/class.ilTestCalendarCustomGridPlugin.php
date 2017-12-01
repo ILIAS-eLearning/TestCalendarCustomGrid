@@ -79,7 +79,7 @@ class ilTestCalendarCustomGridPlugin extends ilAppointmentCustomGridPlugin
 	 */
 	public function addExtraContent()
 	{
-		return "<p style='font-size:12px' color:blue; font-weight:bold; text-align:center>*Plugin TestCalendarCustomGrid added this text*</p>";
+		return "<p style='font-size:12px; color:blue; font-weight:bold; text-align:center'>*Plugin TestCalendarCustomGrid added this text*</p>";
 	}
 
 	//this method should return only the path.
