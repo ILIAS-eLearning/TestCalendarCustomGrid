@@ -6,7 +6,7 @@ TestCalendarCustomGrid is a plugin to test the "AppointmentCustomGrid" plugin sl
 5.3.0
 
 **Maximum ILIAS Version:**
-5.3.999
+5.4.999
 
 **Responsible Developer:**
 Jesús López Reyes - lopez@leifos.com
