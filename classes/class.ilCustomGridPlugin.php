@@ -1,33 +1,28 @@
 <?php
-include_once("./Services/Calendar/classes/class.ilAppointmentCustomGridPlugin.php");
+
+declare(strict_types=1);
+
+use ILIAS\UI\Component\Item\Item;
 
 /***
  * Plugin example for the calendar revision.
  * Plugin slot: AppointmentCustomGrid
  * https://www.ilias.de/docu/goto.php?target=wiki_1357_Plugin_Slot_for_Appointements_in_Main_Column_Grid_Calendar
  * @author Jesús López Reyes <lopez@leifos.com>
- * @version $Id$
  */
 class ilCustomGridPlugin extends ilAppointmentCustomGridPlugin
 {
-	/**
-	 * @return	string	Plugin Name
-	 */
-	final function getPluginName()
+	final public function getPluginName(): string
 	{
 		return "CustomGrid";
 	}
 
 	/**
 	 * Replace the whole appointment presentation in the grid.
-	 * @param string $a_content html grid content
-	 * @return mixed string or empty.
 	 */
-	public function replaceContent($a_content)
+	public function replaceContent(string $content): string
 	{
 		//The following code is only to test the plugin and it does not follow the best practices.
-		$content = $a_content;
-
 		if($_GET['cmdClass'] == "ilcalendardaygui")
 		{
 			$content = str_replace('btn-link','btn btn-info',$content);
@@ -71,17 +66,14 @@ class ilCustomGridPlugin extends ilAppointmentCustomGridPlugin
 		return $content;
 	}
 
-	/**
-	 * @return string or empty.
-	 */
-	public function addExtraContent()
-	{
+	public function addExtraContent(): string
+    {
 		return "<p style='font-size:90%;'>[PLUGIN] Content added.</p>";
 	}
 
 	//this method should return only the path.
-	public function addGlyph()
-	{
+	public function addGlyph(): string
+    {
 		$appointment = $this->getAppointment();
 		$icon = false;
 
@@ -91,7 +83,7 @@ class ilCustomGridPlugin extends ilAppointmentCustomGridPlugin
 		$cat_info["type"] = $cat->getType();
 		$cat_info["obj_id"] = $cat->getObjId();
 
-		if($cat_info['type'] == ilCalendarCategory::TYPE_OBJ)
+		if ($cat_info['type'] == ilCalendarCategory::TYPE_OBJ)
 		{
 			$obj_type = ilObject::_lookupType($cat_info["obj_id"]);
 			switch ($obj_type)
@@ -107,23 +99,19 @@ class ilCustomGridPlugin extends ilAppointmentCustomGridPlugin
 					break;
 			}
 		}
-		if($icon)
+		if ($icon)
 		{
 			return "<img src=$icon border='0'>";
 		}
 		else
 		{
-			return;
+			return '';
 		}
 
 	}
 
 	//Agenda Methods
-	/**
-	 * @param \ILIAS\UI\Component\Item\Item $a_item
-	 * @return \ILIAS\UI\Component\Item\Item
-	 */
-	public function editAgendaItem(\ILIAS\UI\Component\Item\Item $a_item)
+	public function editAgendaItem(Item $item): Item
 	{
 		global $DIC;
 
@@ -131,7 +119,7 @@ class ilCustomGridPlugin extends ilAppointmentCustomGridPlugin
 
 		$df = new \ILIAS\Data\Factory();
 
-		$properties = $a_item->getProperties();
+		$properties = $item->getProperties();
 
 		//example dealing with calendar types.
 		$cat_id = ilCalendarCategoryAssignments::_lookupCategory($this->appointment->getEntryId());
@@ -147,17 +135,17 @@ class ilCustomGridPlugin extends ilAppointmentCustomGridPlugin
 
 		//new description and properties
 		if($this->appointment->isFullday()) {
-			$description = "<span style='color:".$description_color."'>[Edit by Plugin - Full day event] - ".$a_item->getDescription()."</span>";
+			$description = "<span style='color:".$description_color."'>[Edit by Plugin - Full day event] - ".$item->getDescription()."</span>";
 			$properties["metadata by PLUGIN"] = "<h3>This text exists because the plugin knows that this is a full day event</h3>";
 		} else {
-			$description = "<span style='color:".$description_color."'>[Edit by Plugin - NOT Full day event] - ".$a_item->getDescription()."</span>";
+			$description = "<span style='color:".$description_color."'>[Edit by Plugin - NOT Full day event] - ".$item->getDescription()."</span>";
 		}
 
 		//new item color
 		$new_color = '#78B44D';
 
-		$li = $f->item()->standard($a_item->getTitle())
-			->withDescription("".$description)
+		$li = $f->item()->standard($item->getTitle())
+			->withDescription($description)
 			->withLeadText(ilDatePresentation::formatPeriod($this->appointment->getStart(), $this->appointment->getEnd(), true))
 			->withProperties($properties)
 			->withColor($df->color($new_color));
@@ -165,10 +153,7 @@ class ilCustomGridPlugin extends ilAppointmentCustomGridPlugin
 		return $li;
 	}
 
-	/**
-	 * @return string new shy button title.
-	 */
-	public function editShyButtonTitle()
+	public function editShyButtonTitle(): string
 	{
 		return "[PLUGIN]changed this title.";
 	}
